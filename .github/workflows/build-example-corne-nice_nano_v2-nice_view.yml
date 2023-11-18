@@ -9,4 +9,8 @@ jobs:
     secrets: inherit
     with:
       board: '["nice_nano_v2"]'
-      shield: '["corne_left nice_view_adapter nice_view","corne_right nice_view_adapter nice_view"]'
+      shield: '["corne_left","corne_right"]'
+      kconfig: '["CONFIG_ZMK_RGB_UNDERGLOW=y \nCONFIG_WS2812_STRIP=y \nCONFIG_ZMK_DISPLAY=y \nCONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_IDLE=y \nCONFIG_ZMK_RGB_UNDERGLOW_EFF_START=2 \nCONFIG_ZMK_RGB_UNDERGLOW_EXT_POWER=n"]'
+      alphas: '["qwerty"]'
+      nav: '["vi"]'
+      clipboard: '["mac"]'
