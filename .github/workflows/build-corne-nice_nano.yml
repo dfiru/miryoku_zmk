@@ -13,3 +13,4 @@ jobs:
       alphas: '["qwerty"]'
       nav: '["vi"]'
       clipboard: '["mac"]'
+      custom_config: '["#define MIRYOKU_KLUDGE_GLOBALSHIFTFUNCTIONS"]'
