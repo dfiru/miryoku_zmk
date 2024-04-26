@@ -1,0 +1,16 @@
+# Copyright 2022 Manna Harbour
+# https://github.com/manna-harbour/miryoku
+
+name: 'Building @dfiru'
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  build:
+    uses: ./.github/workflows/main.yml
+    secrets: inherit
+    with:
+      board: '["nice_nano_v2"]'
+      shield: '["corne_left","corne_right","settings_reset"]'
+      alphas: '["qwerty"]'
+      nav: '["vi"]'
+      clipboard: '["mac"]'
+      # custom_config: '["#define MIRYOKU_KLUDGE_GLOBALSHIFTFUNCTIONS"]'
