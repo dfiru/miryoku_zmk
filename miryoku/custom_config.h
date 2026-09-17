@@ -1,44 +1,52 @@
 // Copyright 2021 Manna Harbour
 // https://github.com/manna-harbour/miryoku
 
-// Nothing is overridden here right now, and that is deliberate - see below.
-// Build-time options (alphas, nav, clipboard) are set in
+// Build-time options (alphas, tap, nav, clipboard) live in
 // .github/workflows/build-corne-nice_nano.yml, not in this file.
 
 
 // ---------------------------------------------------------------------------
-// DISABLED. This block overrode MIRYOKU_LAYER_TAP. It was not doing what it
-// looked like it was doing.
+// TAP layer (layer 2), with a way back out.
 //
-// miryoku has three alpha layers:
+// Background on the three alpha layers:
 //
-//   BASE  (layer 0) the layer you actually type on. Home row mods, and every
-//                   thumb is a layer-tap.
+//   BASE  (layer 0) the layer you type on. Home row mods, every thumb a
+//                   layer-tap.
 //   EXTRA (layer 1) an alternate alphas layout.
 //   TAP   (layer 2) the escape hatch. Deliberately plain: no home row mods and
-//                   no layer-taps anywhere. Reached with &u_to_U_TAP from the
-//                   NAV, MOUSE and MEDIA layers.
+//                   no layer-taps anywhere. Useful for gaming, for screen
+//                   sharing, and for proving that a key fault is the switch
+//                   rather than a mistimed hold-tap.
 //
-// The override below edited TAP, so it never touched daily typing on BASE.
-// What it did do was put hold-taps back into the one layer whose whole purpose
-// is having none - which removed the best tool for telling a dead switch apart
-// from a mistimed hold-tap. That is exactly the distinction worth drawing right
-// now, so TAP is back to stock.
+// Two things were wrong with TAP before:
 //
-// It also dropped the NAV, MOUSE and MEDIA thumb keys, so from TAP there was no
-// way back to BASE and no way to reach bluetooth profile switching or the
-// bootloader, both of which live on MEDIA.
+//   1. Its alphas are chosen by the `tap` workflow option, which is SEPARATE
+//      from `alphas` and defaults to colemak-dh. That option was never set, so
+//      TAP typed Colemak-DH while BASE typed QWERTY. Now set to qwerty in the
+//      workflow.
 //
-// To change the layer you type on, override MIRYOKU_LAYER_BASE instead. Copy
-// MIRYOKU_ALTERNATIVES_BASE_QWERTY out of
-// miryoku/miryoku_babel/miryoku_layer_alternatives.h and edit only what you
-// mean to. Keep one thumb each for NAV, MOUSE and MEDIA or you lose those
-// layers entirely.
+//   2. Stock TAP has no layer-switching key at all, so once you switch to it
+//      the only way back to BASE is a reset. Upstream documents this and
+//      leaves the fix to the user.
+//
+// This override is MIRYOKU_ALTERNATIVES_TAP_QWERTY verbatim with exactly one
+// key changed: the right outer thumb goes from `&kp DEL` to `&u_to_U_BASE`.
+// DEL is the most expendable of the six thumbs, and `u_to_U_BASE` is miryoku's
+// own double-tap-guarded switch, so a single stray tap does nothing and a
+// deliberate double tap returns you to BASE.
+//
+// Because this override is present, the `tap` workflow option no longer has any
+// effect on the result. Change the alphas here if you change it there.
+//
+// To change the layer you actually type on, override MIRYOKU_LAYER_BASE
+// instead, starting from MIRYOKU_ALTERNATIVES_BASE_QWERTY in
+// miryoku/miryoku_babel/miryoku_layer_alternatives.h. Keep one thumb each for
+// NAV, MOUSE and MEDIA or you lose those layers, and with MEDIA you lose
+// bluetooth profile switching and the bootloader.
+// ---------------------------------------------------------------------------
 
-#if 0
-#define MIRYOKU_LAYER_TAP\
+#define MIRYOKU_LAYER_TAP \
 &kp Q,             &kp W,             &kp E,             &kp R,             &kp T,             &kp Y,             &kp U,             &kp I,             &kp O,             &kp P,             \
-&kp A,             &kp S,             &kp D,             &kp F,             &kp G,             &kp H,             U_MT(LSHFT, J),    U_MT(LCTRL, K),    U_MT(LALT, L),     U_MT(LGUI, SQT),   \
-&kp Z,             &kp X,             &kp C,             &kp V,             &kp B,             &kp N,             &kp M,             &kp COMMA,         U_MT(RALT, DOT),   U_LT(U_BUTTON, SLASH),\
-U_NP,              U_NP,              &kp ESC,           &kp SPACE,         &kp TAB,           U_LT(U_SYM, RET),  U_LT(U_NUM, BSPC), U_LT(U_FUN, DEL),  U_NP,              U_NP
-#endif
+&kp A,             &kp S,             &kp D,             &kp F,             &kp G,             &kp H,             &kp J,             &kp K,             &kp L,             &kp SQT,           \
+&kp Z,             &kp X,             &kp C,             &kp V,             &kp B,             &kp N,             &kp M,             &kp COMMA,         &kp DOT,           &kp SLASH,         \
+U_NP,              U_NP,              &kp ESC,           &kp SPACE,         &kp TAB,           &kp RET,           &kp BSPC,          &u_to_U_BASE,      U_NP,              U_NP

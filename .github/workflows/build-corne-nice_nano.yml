@@ -10,7 +10,22 @@ jobs:
     with:
       board: '["nice_nano_v2"]'
       shield: '["corne_left","corne_right","settings_reset"]'
+
+      # Alphas for the BASE layer (layer 0), the one you type on.
       alphas: '["qwerty"]'
+
+      # Alphas for the TAP layer (layer 2), the plain no-hold-tap escape hatch.
+      # This is a SEPARATE option from `alphas` above and it defaults to
+      # colemak-dh, not to whatever `alphas` is set to. Leaving it unset is why
+      # the TAP layer used to type Colemak-DH while BASE typed QWERTY.
+      tap: '["qwerty"]'
+
       nav: '["vi"]'
       clipboard: '["mac"]'
+
+      # `extra` (layer 1) is left at its default, which is qwerty-with-home-row-mods
+      # and therefore identical to BASE here. Set it to a layout you want to
+      # practise if you ever want layer 1 to be good for something.
+      # extra: '["colemakdh"]'
+
       # custom_config: '["#define MIRYOKU_KLUDGE_GLOBALSHIFTFUNCTIONS"]'
