@@ -155,7 +155,12 @@ jobs:
             modules="${{ matrix.modules }}"
           fi
 
-          run_name=`echo $run_name | tr ' ' '-'`
+          # Zephyr 4.1 board identifiers contain forward slashes (nice_nano//zmk).
+          # actions/upload-artifact@v4 rejects artifact names containing '/', so an
+          # otherwise successful build fails at the upload step. Replace every
+          # character that is invalid in an artifact name.
+          # Upstream fix pending as manna-harbour/miryoku_zmk#139.
+          run_name=$(echo "$run_name" | sed 's/[^A-Za-z0-9._-]/_/g')
           echo "run_name=$run_name" >> $GITHUB_OUTPUT
 
           echo "::endgroup::"

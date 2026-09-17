@@ -8,7 +8,13 @@ jobs:
     uses: ./.github/workflows/main.yml
     secrets: inherit
     with:
-      board: '["nice_nano_v2"]'
+      # Zephyr 4.1 renamed boards. This was nice_nano_v2, which no longer
+      # exists and fails with "Invalid BOARD". The bare name nice_nano is also
+      # wrong: it resolves to the plain Zephyr board without ZMK's variant, so
+      # you silently lose CONFIG_ZMK_BLE and the shield's underglow node. The
+      # variant has to be named. Revision 2.0.0 is the default and is the
+      # board you have. See https://zmk.dev/blog/2025/12/09/zephyr-4-1
+      board: '["nice_nano//zmk"]'
       shield: '["corne_left","corne_right","settings_reset"]'
 
       # Alphas for the BASE layer (layer 0), the one you type on.
