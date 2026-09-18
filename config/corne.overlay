@@ -1,0 +1,15 @@
+// Copyright 2022 Manna Harbour
+// https://github.com/manna-harbour/miryoku
+//
+// ZMK's corne shield sets the LED chain to 10, with the comment "arbitrary;
+// change at will". That is fewer LEDs than this board actually has, so only
+// the first ten in the chain ever light and everything past them stays dark.
+//
+// A standard crkbd carries 27 per half: 21 per-key plus 6 underglow. Counting
+// too high is harmless, since the surplus frames just run off the end of the
+// chain, whereas counting too low leaves LEDs dead. If your build has a
+// different population, put the real number here.
+
+&led_strip {
+    chain-length = <27>;
+};
