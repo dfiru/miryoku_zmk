@@ -23,6 +23,15 @@
 // regular keyboard is the better tool. Recover it from `git show 75ac7be` if
 // that ever changes.
 
+// Make Shift reverse the RGB and bluetooth keys on the MEDIA layer. Without
+// this, hue, saturation and brightness only ever increase, so brightness in
+// particular is a one-way trip: it starts at 10 and the only way back down is
+// wrapping all the way round or wiping settings. Miryoku ships the mod-morphs
+// for it, gated behind this flag, which was sitting commented out in the
+// workflow file. Also makes Shift on a bluetooth profile key clear that
+// profile, which is handy when a pairing goes bad.
+#define MIRYOKU_KLUDGE_GLOBALSHIFTFUNCTIONS
+
 #define MIRYOKU_LAYER_TAP \
 &kp Q,             &kp W,             &kp E,             &kp R,             &kp T,             &kp Y,             &kp U,             &kp I,             &kp O,             &kp P,             \
 &kp A,             &kp S,             &kp D,             &kp F,             &kp G,             &kp H,             &kp J,             &kp K,             &kp L,             &kp SQT,           \
