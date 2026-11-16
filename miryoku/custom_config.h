@@ -25,8 +25,9 @@
 
 // Make Shift reverse the RGB and bluetooth keys on the MEDIA layer. Without
 // this, hue, saturation and brightness only ever increase, so brightness in
-// particular is a one-way trip: it starts at 10 and the only way back down is
-// wrapping all the way round or wiping settings. Miryoku ships the mod-morphs
+// particular is a one-way trip: it starts at 10, climbs with every press,
+// clamps at 100 rather than wrapping, and the only way back down is wiping
+// settings. Miryoku ships the mod-morphs
 // for it, gated behind this flag, which was sitting commented out in the
 // workflow file. Also makes Shift on a bluetooth profile key clear that
 // profile, which is handy when a pairing goes bad.
